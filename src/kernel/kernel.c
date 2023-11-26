@@ -4,9 +4,11 @@
 void kmain(void){
   init();
   
-  puts("Hello, World!\n");
+  printf("GDT is up.\n");
   idt_init();
   printf("IDT Enabled.\n");
 
+  // we are free do thing.
+  puts("Hello, World!\n");
   for(;;) __asm__("hlt");
 }

@@ -30,10 +30,8 @@ k_end:
 gdtr:
   size_gdtr:
     dw k_end - k_null_desc - 1
-    dq k_null_desc
+    dd k_null_desc
 gdt_dataseg equ k_dseg - k_null_desc
-
-[global load_gdt]
 
 load_gdt:
   lgdt [gdtr]   ;; GDTR is the pointer to our gdt table
