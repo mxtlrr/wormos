@@ -3,3 +3,6 @@ bin/
 isodir/
 *.img
 *.iso
+
+.vscode/
+*swp
