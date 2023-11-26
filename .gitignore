@@ -1,0 +1,5 @@
+obj/
+bin/
+isodir/
+*.img
+*.iso
