@@ -50,9 +50,21 @@ void putc(char c) {
         y = 0;
     }
   }
+  move_cursor(x,y);
 }
  
 void puts(char* fmt) {
 	for (size_t i = 0; i < strlen(fmt); i++)
 		putc(fmt[i]);
+}
+
+
+#include "io.h"
+void move_cursor(int x, int y){
+  uint16_t pos = y * VGA_WIDTH + x;
+ 
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (uint8_t) (pos & 0xFF));
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
 }

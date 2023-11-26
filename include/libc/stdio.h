@@ -32,3 +32,4 @@ void terminal_setcolor(uint8_t color);
 void init(void);
 void putc(char c);
 void puts(char* fmt);
+void move_cursor(int x, int y);

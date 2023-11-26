@@ -3,5 +3,5 @@
 void kmain(void){
   init();
   
-  puts("Hello, World!\n");
+  puts("Hello, World!");
 }
