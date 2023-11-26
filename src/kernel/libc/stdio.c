@@ -58,6 +58,43 @@ void puts(char* fmt) {
 		putc(fmt[i]);
 }
 
+#define STR  's'
+#define INT  'd'
+#define HEX  'x'
+#define CHAR 'c'
+
+void printf(char* fmt, ...) {
+	va_list ap;
+	va_start(ap, fmt);
+
+	char* ptr;
+
+	for (ptr = fmt; *ptr != '\0'; ++ptr) {
+		if (*ptr == '%') {
+			++ptr;
+			switch (*ptr) {
+				case STR:	// string
+					puts(va_arg(ap, char*));
+					break;
+				case INT: // integer
+					puts(itoa(va_arg(ap, int), 10));
+					break;
+				case HEX: // hexadecimal
+					puts(itoa(va_arg(ap, uint32_t), 16));
+					break;
+				case CHAR:
+					// GCC complains that you can't have 'char'
+					// as a type for va_arg, so it must be int
+					// char r[2] = { va_arg(ap, int), 0 }; // null terminate it
+					putc(va_arg(ap, int));
+			}
+		} else {
+			char t[2] = { *ptr, 0 };
+			puts(t);
+		}
+	}
+}
+
 
 #include "io.h"
 void move_cursor(int x, int y){

@@ -6,6 +6,7 @@ void kmain(void){
   
   puts("Hello, World!\n");
   idt_init();
-  puts("IDT Enabled.\n");
-  asm("int $0x5");
+  printf("IDT Enabled.\n");
+
+  for(;;) __asm__("hlt");
 }

@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdarg.h>
 
 #define VGA_WIDTH  80
 #define VGA_HEIGHT 25
@@ -33,3 +34,5 @@ void init(void);
 void putc(char c);
 void puts(char* fmt);
 void move_cursor(int x, int y);
+
+void printf(char* fmt, ...);
