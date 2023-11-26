@@ -1,7 +1,7 @@
 CC := i386-elf-gcc
 AS := nasm
 
-CFLAGS := -ffreestanding -O2 -Wall -Wextra
+CFLAGS := -ffreestanding -O2 -Wall -Wextra -Iinclude/
 
 AFLAGS := -felf32 -Iinclude/
 
