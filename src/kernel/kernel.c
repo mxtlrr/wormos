@@ -10,5 +10,9 @@ void kmain(void){
 
   // we are free do thing.
   puts("Hello, World!\n");
+
+  asm("int $0x3");
+
+  
   for(;;) __asm__("hlt");
 }
