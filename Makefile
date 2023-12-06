@@ -3,7 +3,7 @@ AS := nasm
 
 CFLAGS := -ffreestanding -O2 -Wall -Wextra -Iinclude/
 
-AFLAGS := -felf32 -Iinclude/
+AFLAGS := -felf32 -Iinclude/ -g
 
 all: compile make_iso
 .PHONY: all

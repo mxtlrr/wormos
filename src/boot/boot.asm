@@ -38,7 +38,7 @@ _start:
   call kmain
 
   ;; Somehow got out of kmain?
-  cli   ;; Disable interrupts
+  ; cli   ;; Disable interrupts
 .hang: hlt
   jmp .hang
 .end:
