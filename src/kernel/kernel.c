@@ -6,13 +6,10 @@ void kmain(void){
   
   printf("GDT is up.\n");
   idt_init();
+  asm("sti");
   printf("IDT Enabled.\n");
 
   // we are free do thing.
   puts("Hello, World!\n");
-
-  asm("int $0x3");
-
-  
-  for(;;) __asm__("hlt");
+  for(;;) asm("hlt");
 }

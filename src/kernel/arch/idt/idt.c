@@ -52,5 +52,41 @@ void idt_init(){
   idt_set_descriptor(30, (uint32_t)isr30, 0x8E);
   idt_set_descriptor(31, (uint32_t)isr31, 0x8E);
 
+  /* irq time! 
+   * first we need to tell the PIC we're gonna
+   * do some funky stuff */
+  outb(M_PIC_CMD,  0x11); // Hey. we're gonna do something
+  outb(S_PIC_CMD,  0x11); // You too, wakey-wakey
+  outb(M_PIC_DATA, 0x20); // We're now going to remap the IRQs
+  outb(S_PIC_DATA, 0x28); // to an acceptable range.
+
+  outb(M_PIC_DATA, 0x04); // interval stuff
+  outb(S_PIC_DATA, 0x02);
+
+  outb(M_PIC_DATA, 0x01);
+  outb(S_PIC_DATA, 0x01);
+  outb(M_PIC_DATA, 0x00);
+  outb(S_PIC_DATA, 0x00);
+
+  /* badabing bada boom! part 1/2 of the C code is done!
+   * now we need to set the IRQ descriptors for 32-47 */
+  idt_set_descriptor(32, (uint32_t)irq0, 0x8e);
+  idt_set_descriptor(33, (uint32_t)irq1, 0x8e);
+  idt_set_descriptor(34, (uint32_t)irq2, 0x8e);
+  idt_set_descriptor(35, (uint32_t)irq3, 0x8e);
+  idt_set_descriptor(36, (uint32_t)irq4, 0x8e);
+  idt_set_descriptor(37, (uint32_t)irq5, 0x8e);
+  idt_set_descriptor(38, (uint32_t)irq6, 0x8e);
+  idt_set_descriptor(39, (uint32_t)irq7, 0x8e);
+  idt_set_descriptor(40, (uint32_t)irq8, 0x8e);
+  idt_set_descriptor(41, (uint32_t)irq9, 0x8e);
+  idt_set_descriptor(42, (uint32_t)irq10, 0x8e);
+  idt_set_descriptor(43, (uint32_t)irq11, 0x8e);
+  idt_set_descriptor(44, (uint32_t)irq12, 0x8e);
+  idt_set_descriptor(45, (uint32_t)irq13, 0x8e);
+  idt_set_descriptor(46, (uint32_t)irq14, 0x8e);
+  idt_set_descriptor(47, (uint32_t)irq15, 0x8e);
+  
+  /* part 2/2 done! now its up to our assembly to do thing */
   idt_flush((uint32_t)&idt_ptr);
 }
