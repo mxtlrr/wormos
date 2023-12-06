@@ -37,19 +37,27 @@ void _putc(char c, uint8_t color, size_t y, size_t x)
 	const size_t index = x * VGA_WIDTH + y;
 	terminal_buffer[index] = vga_entry(c, color);
 }
- 
+
+#define TAB_LEN 2
 void putc(char c) {
-  if(c == '\n'){
-    x=0;
-    y++;
-  } else {
-    _putc(c, terminal_color, x, y);
-    if (++x == VGA_WIDTH) {
-      x = 0;
-      if (++y == VGA_HEIGHT)
-        y = 0;
-    }
-  }
+	switch(c){
+		case '\n':
+			x = 0;
+			y++;
+			break;
+
+		case '\t':
+			x+=TAB_LEN;
+			break;
+		
+		default:
+			_putc(c, terminal_color, x, y);
+			if (++x == VGA_WIDTH) {
+				x = 0;
+				if (++y == VGA_HEIGHT) y = 0;
+			}
+			break;
+	}
   move_cursor(x,y);
 }
  
