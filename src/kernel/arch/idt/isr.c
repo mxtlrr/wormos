@@ -51,6 +51,7 @@ void exception_handler(registers_t regs){
 
 isr_t hdlrs[256];
 void register_irq(uint8_t irq, isr_t hdlr){
+  printf("registered irq %d\n", irq);
   hdlrs[irq]=hdlr;
 }
 
@@ -63,5 +64,12 @@ void irq_hdlr(registers_t regs){
   // reset -> master
   outb(M_PIC_CMD, 0x20);
 
-  printf("IRQ0x%x recv.\n");
+  // does the interrupt exist?
+  if(hdlrs[regs.irq_n] != 0){
+    // it does, call it
+    isr_t isr_handler = hdlrs[regs.irq_n];
+    isr_handler(regs);
+  }
+
+  printf("IRQ0x%x recv.\n", regs.irq_n);
 }

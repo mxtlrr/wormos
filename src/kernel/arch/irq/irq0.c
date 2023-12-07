@@ -2,13 +2,13 @@
 uint32_t ticks=0;
 
 void timer_loop(registers_t regs){
-  ticks++;
-  printf("%d", ticks);
+  // ticks++;
+  printf("%d", regs.irq_n);
 }
 
 void init_pit(uint32_t freq){
   // this is NOW IRQ0!
-  register_irq(32, &timer_loop);
+  register_irq(IRQ0, &timer_loop);
   uint32_t div = 1193180/freq;
 
   outb(0x43, 0x36); // command byte to PIC
@@ -18,4 +18,5 @@ void init_pit(uint32_t freq){
 
   outb(0x40, l);
   outb(0x40, h);
+  printf("done initializing\n");
 }

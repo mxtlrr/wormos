@@ -13,7 +13,6 @@ void kmain(void){
   // we are free do thing.
   puts("Hello, World!\n");
 
-  asm("int $0x08");
   init_pit(50);
   for(;;){
     asm("hlt");

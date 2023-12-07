@@ -6,6 +6,7 @@
 #include "io.h"
 
 #define DESCRIPTOR 0x08
+#define PIC_MASK 0x00
 
 typedef struct {
   uint16_t isr_low;
