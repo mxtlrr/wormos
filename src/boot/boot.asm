@@ -22,17 +22,12 @@ stack_top:
 
 section .text
 
-%include "arch/gdt.asm"
-
-
 global _start:function (_start.end - _start)
 _start:
   ;; Set up stack here
   mov esp, stack_top
 
-  ;; TODO: GDT
   cli
-  call load_gdt
 
   extern kmain
   call kmain

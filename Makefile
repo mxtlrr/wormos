@@ -15,6 +15,7 @@ override CFILES := $(shell find ./ -type f -name '*.c')
 compile:
 	mkdir -p obj/ bin/
 	$(AS) $(AFLAGS) src/boot/boot.asm -o obj/boot.o
+	$(AS) -felf32 -g include/arch/gdt.asm -o obj/_gdt.o
 	$(AS) -felf32 -g include/arch/idt/_idt.asm -o obj/_idt.o
 	@$(foreach file, $(CFILES), $(CC) $(CFLAGS) -c $(file) -o obj/$(basename $(notdir $(file))).o; echo CC $(file);)
 
