@@ -30,5 +30,15 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
   register_kbd();  
 
   splash();
+
+
+  if(!(mbd->flags >> 6 & 0x1)){ // is bit 6 not set?
+    printf("No mmap provided!\n");
+    for(;;) asm("cli\nhlt");
+  }
+
+  // mmap is provided!
+  multiboot_uint32_t entries = mbd->mmap_length/(sizeof(multiboot_memory_map_t));
+  printf("%d entries detected in the mmap\n", entries);
   for(;;) asm("hlt");
 }
