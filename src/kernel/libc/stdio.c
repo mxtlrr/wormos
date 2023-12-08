@@ -59,6 +59,7 @@ void putc(char c) {
 			break;
 	}
   move_cursor(x,y);
+	scroll();
 }
  
 void puts(char* fmt) {
@@ -112,4 +113,16 @@ void move_cursor(int x, int y){
 	outb(0x3D5, (uint8_t) (pos & 0xFF));
 	outb(0x3D4, 0x0E);
 	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
+}
+
+void scroll(){
+	uint8_t  attrib = (0<<4) | (15 & 0x0F);
+	uint16_t blank = 0x20 | (attrib<<8);
+
+	if(y >= 25){
+		int i = 0;
+		for(i=0;i<(24*80);i++) terminal_buffer[i] = terminal_buffer[i+80];
+		for(i=(24*80);i<(25*80);i++) terminal_buffer[i] = blank; // clear!
+		y = 24;
+	}
 }
