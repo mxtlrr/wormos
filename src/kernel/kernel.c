@@ -8,6 +8,9 @@
 #include "arch/irq/irq0.h"
 #include "arch/irq/irq1.h"
 
+/* memory */
+#include "mem/mmap.h"
+
 void kmain(multiboot_info_t* mbd, uint32_t magic){
   if(magic != 0x2badb002){
     while(1); // don't boot
@@ -38,7 +41,10 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
   }
 
   // mmap is provided!
-  multiboot_uint32_t entries = mbd->mmap_length/(sizeof(multiboot_memory_map_t));
-  printf("%d entries detected in the mmap\n", entries);
+  printf("\nDetected %o%d%o MB of RAM!\n", VGA_COLOR_LIGHT_GREEN,
+                                         get_mem_available(mbd),
+                                         VGA_COLOR_WHITE);
+
+  // needed for irqs
   for(;;) asm("hlt");
 }
