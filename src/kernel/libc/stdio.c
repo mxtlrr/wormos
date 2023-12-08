@@ -90,6 +90,10 @@ void printf(char* fmt, ...) {
 				case 'c':
 					putc(va_arg(ap, int));
 					break;
+				
+				case 'o': // not octal, we need to change the Output cOlOr
+					terminal_setcolor(va_arg(ap, int));
+					break;
 			}
 		} else {
 			char t[2] = { *ptr, 0 };
