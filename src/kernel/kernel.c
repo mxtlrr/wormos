@@ -6,6 +6,7 @@
 
 /* irqs */
 #include "arch/irq/irq0.h"
+#include "arch/irq/irq1.h"
 
 void kmain(multiboot_info_t* mbd, uint32_t magic){
   if(magic != 0x2badb002){
@@ -20,10 +21,13 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
   printf("IDT Enabled.\n");
 
   // we are free do thing.
-  puts("Hello, World!\n");
   dc_printf("Hello from debugcon!\n");
 
   
+  /* start up*/
+  printf("Starting up interrupts.\n");
   init_pit(50);
+  register_kbd();  
+
   for(;;) asm("hlt");
 }

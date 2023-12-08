@@ -2,9 +2,9 @@
 
 uint32_t tick = 0;
 
-static void timer_callback(registers_t regs){
+static void timer_callback(){
   tick++;
-  printf("%d\n", tick);
+  // printf("%d\n", tick);
 }
 
 void init_pit(uint32_t freq){

@@ -31,7 +31,7 @@ __attribute__((noreturn))
 void exception_handler(registers_t regs);
 
 
-typedef void (*isr_t)(registers_t);
+typedef void (*isr_t)();
 void register_irq(uint8_t irq, isr_t hdlr);
 
 void irq_hdlr(registers_t regs);
