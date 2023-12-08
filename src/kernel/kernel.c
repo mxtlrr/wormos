@@ -15,7 +15,9 @@ void kmain(void){
 
   // we are free do thing.
   puts("Hello, World!\n");
+  dc_printf("Hello from debugcon!\n");
 
+  
   init_pit(50);
   for(;;) asm("hlt");
 }

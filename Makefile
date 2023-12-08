@@ -30,7 +30,7 @@ make_iso:
 
 
 qemu: bin/worm-os.iso
-	qemu-system-i386 -cdrom $^
+	qemu-system-i386 -cdrom $^ -m 256 -debugcon stdio
 
 clean: bin/worm-os.iso bin/ obj/ isodir/
 	rm -rf $^

@@ -67,10 +67,6 @@ void puts(char* fmt) {
 		putc(fmt[i]);
 }
 
-#define STR  's'
-#define INT  'd'
-#define HEX  'x'
-#define CHAR 'c'
 
 void printf(char* fmt, ...) {
 	va_list ap;
@@ -82,20 +78,18 @@ void printf(char* fmt, ...) {
 		if (*ptr == '%') {
 			++ptr;
 			switch (*ptr) {
-				case STR:	// string
+				case 's':	// string
 					puts(va_arg(ap, char*));
 					break;
-				case INT: // integer
+				case 'd': // integer
 					puts(itoa(va_arg(ap, int), 10));
 					break;
-				case HEX: // hexadecimal
+				case 'x': // hexadecimal
 					puts(itoa(va_arg(ap, uint32_t), 16));
 					break;
-				case CHAR:
-					// GCC complains that you can't have 'char'
-					// as a type for va_arg, so it must be int
-					// char r[2] = { va_arg(ap, int), 0 }; // null terminate it
+				case 'c':
 					putc(va_arg(ap, int));
+					break;
 			}
 		} else {
 			char t[2] = { *ptr, 0 };
@@ -124,5 +118,44 @@ void scroll(){
 		for(i=0;i<(24*80);i++) terminal_buffer[i] = terminal_buffer[i+80];
 		for(i=(24*80);i<(25*80);i++) terminal_buffer[i] = blank; // clear!
 		y = 24;
+	}
+}
+
+
+void dc_putc(char c){
+	outb(0xe9, c);
+}
+
+void dc_puts(char* fmt){
+	for(int i = 0; i < strlen(fmt); i++)
+		dc_putc(fmt[i]);
+}
+void dc_printf(char* fmt, ...){
+	va_list ap;
+	va_start(ap, fmt);
+
+	char* ptr;
+
+	for (ptr = fmt; *ptr != '\0'; ++ptr) {
+		if (*ptr == '%') {
+			++ptr;
+			switch (*ptr) {
+				case 's':	// string
+					dc_puts(va_arg(ap, char*));
+					break;
+				case 'd': // integer
+					dc_puts(itoa(va_arg(ap, int), 10));
+					break;
+				case 'x': // hexadecimal
+					dc_puts(itoa(va_arg(ap, uint32_t), 16));
+					break;
+				case 'c':
+					dc_putc(va_arg(ap, int));
+					break;
+			}
+		} else {
+			char t[2] = { *ptr, 0 };
+			dc_puts(t);
+		}
 	}
 }
