@@ -30,6 +30,9 @@ _start:
   cli
 
   extern kmain
+
+  push eax
+  push ebx    ;; multiboot <3
   call kmain
 
   ;; Somehow got out of kmain?
