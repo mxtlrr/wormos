@@ -42,3 +42,5 @@ void printf(char* fmt, ...);
 void dc_putc(char c);
 void dc_puts(char* fmt);
 void dc_printf(char* fmt, ...);
+
+void splash();

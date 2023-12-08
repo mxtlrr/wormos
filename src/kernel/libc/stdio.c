@@ -159,3 +159,16 @@ void dc_printf(char* fmt, ...){
 		}
 	}
 }
+
+void splash(){
+	printf("\t\t\t\t\t\t                           (o)(o)   \n");
+	printf("\t\t\t\t\t\t                          /     \\  \n");
+	printf("\t\t\t\t\t\t                         /       |  \n");
+	printf("\t\t\t\t\t\t                        /   \\  * | \n");
+	printf("\t\t\t\t\t\t          ________     /    /\\__/  \n");
+	printf("\t\t\t\t\t\t  _      /        \\   /    /       \n");
+	printf("\t\t\t\t\t\t / \\    /  ____    \\_/    /	 	    \n");
+	printf("\t\t\t\t\t\t//\\ \\  /  /    \\         /			  \n");
+	printf("\t\t\t\t\t\tV  \\ \\/  /      \\       /		 	 	\n");
+	printf("\t\t\t\t\t\t    \\___/        \\_____/			 	 	\n");
+}

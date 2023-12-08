@@ -29,5 +29,6 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
   init_pit(50);
   register_kbd();  
 
+  splash();
   for(;;) asm("hlt");
 }
