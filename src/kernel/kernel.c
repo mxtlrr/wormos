@@ -45,6 +45,9 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
                                          get_mem_available(mbd),
                                          VGA_COLOR_WHITE);
 
+
+  add_entries(mbd);
+
   // needed for irqs
   for(;;) asm("hlt");
 }
