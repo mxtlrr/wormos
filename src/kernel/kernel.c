@@ -10,11 +10,12 @@ void kmain(void){
   init_gdt();  
   printf("GDT is up.\n");
   idt_init();
+  asm volatile("sti");
   printf("IDT Enabled.\n");
 
   // we are free do thing.
   puts("Hello, World!\n");
 
-  init_pit(1000);
+  init_pit(50);
   for(;;) asm("hlt");
 }

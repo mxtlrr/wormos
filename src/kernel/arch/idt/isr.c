@@ -51,25 +51,20 @@ void exception_handler(registers_t regs){
 
 isr_t hdlrs[256];
 void register_irq(uint8_t irq, isr_t hdlr){
-  printf("registered irq %d\n", irq);
+  printf("[IRQs] registered irq %d\n", irq);
   hdlrs[irq]=hdlr;
 }
 
 void irq_hdlr(registers_t regs){
-  // send EOI
-  if(regs.irq_n >= 40){
-    // reset -> slave
-    outb(S_PIC_CMD, 0x20);
+  if (regs.irq_n >= 40){
+    // Send reset signal to slave.
+    outb(0xA0, 0x20);
   }
-  // reset -> master
-  outb(M_PIC_CMD, 0x20);
+  // Send reset signal to master. (As well as slave, if necessary).
+  outb(0x20, 0x20);
 
-  // does the interrupt exist?
-  if(hdlrs[regs.irq_n] != 0){
-    // it does, call it
-    isr_t isr_handler = hdlrs[regs.irq_n];
-    isr_handler(regs);
+  if (hdlrs[regs.irq_n] != 0){
+    isr_t handler = hdlrs[regs.irq_n];
+    handler(regs);
   }
-
-  printf("IRQ0x%x recv.\n", regs.irq_n);
 }

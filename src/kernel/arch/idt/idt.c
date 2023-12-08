@@ -55,31 +55,16 @@ void idt_init(){
   /* irq time! 
    * first we need to tell the PIC we're gonna
    * do some funky stuff */
-  outb(M_PIC_CMD,  0x11); // Hey. we're gonna do something
-  iowait
-  outb(S_PIC_CMD,  0x11); // You too, wakey-wakey
-  iowait
-  outb(M_PIC_DATA, 0x20); // We're now going to remap the IRQs
-  iowait
-  outb(S_PIC_DATA, 0x28); // to an acceptable range.
-
-  iowait
-  outb(M_PIC_DATA, 0x04); // interval stuff
-  iowait
-  outb(S_PIC_DATA, 0x02);
-  iowait
-
-  iowait
-  outb(M_PIC_DATA, 0x01);
-  iowait
-  outb(S_PIC_DATA, 0x01);
-  iowait
-
-  // finished initialization
-  // unmask IRQs
-  outb(M_PIC_DATA, PIC_MASK);
-  iowait
-  outb(S_PIC_DATA, PIC_MASK);
+  outb(0x20, 0x11);
+  outb(0xA0, 0x11);
+  outb(0x21, 0x20);
+  outb(0xA1, 0x28);
+  outb(0x21, 0x04);
+  outb(0xA1, 0x02);
+  outb(0x21, 0x01);
+  outb(0xA1, 0x01);
+  outb(0x21, 0x0);
+  outb(0xA1, 0x0);
 
   /* badabing bada boom! part 1/2 of the C code is done!
    * now we need to set the IRQ descriptors for 32-47 */

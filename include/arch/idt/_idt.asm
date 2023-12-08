@@ -115,26 +115,27 @@ def_irq 15, 47
 
 [extern irq_hdlr]
 irq_stub:
-  pusha
+    pusha                    ; Pushes edi,esi,ebp,esp,ebx,edx,ecx,eax
 
-  mov ax, ds
-  push eax
+    mov ax, ds               ; Lower 16-bits of eax = ds.
+    push eax                 ; save the data segment descriptor
 
-  mov ax, 0x10
-  mov ds, ax
-  mov es, ax
-  mov fs, ax
-  mov gs, ax
+    mov ax, 0x10  ; load the kernel data segment descriptor
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
 
-  call irq_hdlr
+    call irq_hdlr
 
-  pop ebx
-  mov ds, bx    ;; <-- 
-  mov es, bx
-  mov fs, bx
-  mov gs, bx
+    pop ebx        ; reload the original data segment descriptor
+    ;; FIXME: maybe uncomment this? it works rn so eh
+    ;; mov ds, bx
+    ;; mov es, bx
+    ;; mov fs, bx
+    ;; mov gs, bx
 
-  popa
-  add esp, 8
-  sti
-  iret
+    popa                     ; Pops edi,esi,ebp...
+    add esp, 8     ; Cleans up the pushed error code and pushed ISR number
+    sti
+    iret
