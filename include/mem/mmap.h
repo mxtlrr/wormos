@@ -24,6 +24,5 @@ typedef struct {
 
 
 int get_mem_available(multiboot_info_t* mbd);
-
 void add_entries(multiboot_info_t* mbd);
 mmap_entry_t get_entry(int position);

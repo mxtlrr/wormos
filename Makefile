@@ -6,21 +6,21 @@ CFLAGS := -ffreestanding -O2 -Wall -Wextra -Iinclude/ \
 
 AFLAGS := -felf32 -Iinclude/ -g
 
+
 all: compile make_iso
 .PHONY: all
 
 override OFILES := $(shell find ./obj/ -type f -name '*.o')
 override CFILES := $(shell find ./ -type f -name '*.c')
+override AFILES := $(shell find ./ -type f -name '*.asm')
 
 compile:
-	mkdir -p obj/ bin/
-	$(AS) $(AFLAGS) src/boot/boot.asm -o obj/boot.o
-	$(AS) -felf32 -g include/arch/gdt.asm -o obj/_gdt.o
-	$(AS) -felf32 -g include/arch/idt/_idt.asm -o obj/_idt.o
+	@mkdir -p obj/ bin/
+	@$(foreach file, $(AFILES), $(AS) $(AFLAGS) $(file) -o obj/_$(basename $(notdir $(file))).o; echo AS $(file);)
 	@$(foreach file, $(CFILES), $(CC) $(CFLAGS) -c $(file) -o obj/$(basename $(notdir $(file))).o; echo CC $(file);)
 
-	$(CC) -Tsrc/link.ld -o bin/os.bin -ffreestanding -O2 -nostdlib $(OFILES) -lgcc
-
+	@$(CC) -Tsrc/link.ld -o bin/os.bin -ffreestanding -O2 -nostdlib $(OFILES) -lgcc
+	@echo LD src/link.ld ...
 
 make_iso:
 	@mkdir -p isodir/boot/grub
