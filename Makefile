@@ -26,7 +26,7 @@ make_iso:
 	@mkdir -p isodir/boot/grub
 	@cp bin/os.bin isodir/boot/os.bin
 	@cp src/boot/grub.cfg isodir/boot/grub/grub.cfg
-	@grub-mkrescue -o bin/worm-os.iso isodir
+	@grub-mkrescue -o bin/worm-os.iso isodir 2>/dev/null
 
 
 qemu: bin/worm-os.iso
