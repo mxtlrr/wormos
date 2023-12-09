@@ -131,8 +131,7 @@ void dc_putc(char c){
 }
 
 void dc_puts(char* fmt){
-	for(int i = 0; i < strlen(fmt); i++)
-		dc_putc(fmt[i]);
+	for(size_t i = 0; i < strlen(fmt); i++) dc_putc(fmt[i]);
 }
 void dc_printf(char* fmt, ...){
 	va_list ap;
