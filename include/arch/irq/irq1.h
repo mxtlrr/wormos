@@ -5,3 +5,4 @@
 #include "io.h"
 
 void register_kbd(void); // not much else to say
+void write_prompt();

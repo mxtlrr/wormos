@@ -47,6 +47,7 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
 
 
   add_entries(mbd);
+	write_prompt();
 
   // needed for irqs
   for(;;) asm("hlt");

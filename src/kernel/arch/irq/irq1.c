@@ -1,5 +1,11 @@
 #include "arch/irq/irq1.h"
 
+#define PROMPT ">>"
+void write_prompt(){
+	puts(PROMPT);
+}
+
+
 char lookups[] = {
   0, 0, '1', '2',
 	'3', '4', '5', '6',
@@ -50,13 +56,22 @@ void kbd_call(){
   }
 
   if(nch == 0){
-    if(c == 0x2a)      l_shift = 1;
-    else if(c == 0xaa) l_shift = 0;
-    else if(c == 0x9c) {
-      printf("\n\tbuf content: '%s'\n", buf);
-      for(int i = 0; i != 256; i++) buf[i]=0;
-      buf_index = 0;
-    }
+		switch(c){
+			case 0x2a: /* left shift pressed */
+				l_shift = 1;
+				break;
+			case 0xaa: /* left shift released */
+				l_shift = 0;
+				break;
+
+			case 0x9c: /* enter pressed */
+				printf("\n\tbuf content: '%s'\n", buf);
+				for(int i = 0; i != 256; i++) buf[i] = 0;
+				buf_index = 0;
+
+				write_prompt();
+				break;
+		}
   } else {
     if(l_shift == 0) {
       putc(nch);
