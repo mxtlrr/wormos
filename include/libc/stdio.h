@@ -31,6 +31,7 @@ uint16_t vga_entry(unsigned char uc, uint8_t color);
 void terminal_setcolor(uint8_t color);
 
 void init(void);
+void _putc(char c, uint8_t color, size_t x, size_t y);
 void putc(char c);
 void puts(char* fmt);
 void move_cursor(int x, int y);
@@ -44,3 +45,10 @@ void dc_puts(char* fmt);
 void dc_printf(char* fmt, ...);
 
 void splash();
+
+
+int get_cur_x();
+int get_cur_y();
+
+
+void set_cur_x(size_t x);

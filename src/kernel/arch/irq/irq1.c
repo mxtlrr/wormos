@@ -65,11 +65,21 @@ void kbd_call(){
 				break;
 
 			case 0x9c: /* enter pressed */
+				/* TODO: strcmp implementation */
 				printf("\n\tbuf content: '%s'\n", buf);
 				for(int i = 0; i != 256; i++) buf[i] = 0;
 				buf_index = 0;
 
 				write_prompt();
+				break;
+
+
+			case 0x0e: /* backspace pressed */
+				buf[--buf_index] = 0x0; // remove from buffer
+				size_t x = get_cur_x();
+				_putc(0x00, 15, --x, get_cur_y());
+				set_cur_x(x);
+				move_cursor(get_cur_x(), get_cur_y());
 				break;
 		}
   } else {

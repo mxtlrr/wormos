@@ -12,6 +12,11 @@ uint16_t vga_entry(unsigned char uc, uint8_t color) {
 
 size_t y;
 size_t x;
+
+int get_cur_x(){ return x; }
+int get_cur_y(){ return y; }
+void set_cur_x(size_t _x){ x = _x;}
+
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
  
