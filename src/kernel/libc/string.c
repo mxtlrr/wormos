@@ -7,6 +7,18 @@ size_t strlen(const char* str) {
 	return len;
 }
 
+int strcmp(char* s1, char* s2){
+  const unsigned char *p1 = (const unsigned char *) s1;
+  const unsigned char *p2 = (const unsigned char *) s2;
+  unsigned char c1, c2;
+  do {
+		c1 = (unsigned char) *p1++;
+		c2 = (unsigned char) *p2++;
+	  if (c1 == '\0') return c1 - c2;
+  } while (c1 == c2);
+  return c1 - c2;
+}
+
 char* itoa(uint32_t num, int base){
 	static char repr[] = "0123456789ABCDEF";
 	static char buffer[50];

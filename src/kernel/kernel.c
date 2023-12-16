@@ -1,5 +1,6 @@
 #include "multiboot.h"
 #include "libc/stdio.h"
+#include "libc/string.h"
 
 #include "arch/gdt.h"
 #include "arch/idt/idt.h"
@@ -47,6 +48,7 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
 
 
   add_entries(mbd);
+	
 	write_prompt();
 
   // needed for irqs
