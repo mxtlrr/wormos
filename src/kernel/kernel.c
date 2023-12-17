@@ -1,6 +1,5 @@
 #include "multiboot.h"
 #include "libc/stdio.h"
-#include "libc/string.h"
 
 #include "arch/gdt.h"
 #include "arch/idt/idt.h"
@@ -11,6 +10,7 @@
 
 /* memory */
 #include "mem/mmap.h"
+#include "mem/heap.h"
 
 void kmain(multiboot_info_t* mbd, uint32_t magic){
   if(magic != 0x2badb002){
@@ -34,6 +34,8 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
   register_kbd();  
 
   splash();
+	printf("Welcome to WormOS. Built on %s at %s.\n",
+				__DATE__, __TIME__);
 
 
   if(!(mbd->flags >> 6 & 0x1)){ // is bit 6 not set?
@@ -48,7 +50,7 @@ void kmain(multiboot_info_t* mbd, uint32_t magic){
 
 
   add_entries(mbd);
-	
+
 	write_prompt();
 
   // needed for irqs
