@@ -2,12 +2,22 @@
 
 WormOS is a 32-bit experimental operating system. I don't expect much from it
 
-## Roadmap
+# Roadmap
 
 - [ ] Interrupts
   - [X] Keyboard Input
-    - [ ] Shell
+    - [X] Shell
       - [ ] Execute things
-- [ ] Filesystem
-  - [ ] Read/Write to Files
-  - [ ] Ability to Load Apps
+      - [ ] Parse user input
+- [ ] Login prompt
+    - [ ] Some hash implementation
+- [X] Memory
+    - [X] Memory map from GRUB
+    - [X] `malloc()`/`free()`
+- [ ] FAT32 file system
+    - [ ] Read/Write Files
+    - [ ] Directories
+
+## Potential Targets
+- [ ] Usermode
+- [ ] FB/GUI
